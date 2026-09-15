@@ -3,6 +3,7 @@
 #include <ESPmDNS.h>
 #include "services\wserial.h"
 
+
 void setup() {
   WiFi.begin("InovaIndustria","industria50");
   while (WiFi.status()!=WL_CONNECTED) delay(100);

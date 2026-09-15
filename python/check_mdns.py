@@ -27,7 +27,7 @@ def ping(ip: str):
 
 if __name__ == "__main__":
     # 🟩 coloque o nome mDNS da sua ESP32 aqui:
-    hostname = "iikit2.local"
+    hostname = "iikit5.local"
 
     ip = check_mdns(hostname)
     if ip:
