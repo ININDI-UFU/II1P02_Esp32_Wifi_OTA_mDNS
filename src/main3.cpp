@@ -10,7 +10,7 @@ const char *password = "industria50";
 const char *hostName = KIT_HOSTNAME;
 
 void receivedFunc(std::string str){
-  wserial.println(str.c_str());
+  wserial.println(str.c_str()+std::string("\n"));
 }
 
 // ============================================================
@@ -215,7 +215,7 @@ void setup() {
 
   // Tenta listen até conseguir
   wserial.begin(115200, 47268UL);
-  wserial.onInputReceived(receivedFunc);
+  wserial.onInputReceived([](std::string str){ wserial.println((str+'\n').c_str()); });
   wserial.println("[IP] is " + String(WiFi.localIP().toString()));
 
   if (!MDNS.begin(hostName)) wserial.println("[mDNS] begin failed");
@@ -241,11 +241,13 @@ void loop() {
   ArduinoOTA.handle();
   wserial.update();
   server.handleClient();       // NOVO em relação ao main2
+  
+  uint32_t now = millis();
 
   static float t_reta = 0.0f;            // variável de tempo para a reta
-  static uint32_t lastRetry0 = 0;
-  if (millis() - lastRetry0 > 200) {
-    lastRetry0 = millis();
+  static uint32_t t1 = 0;
+  if (now - t1 > 200) {
+    t1 = now;
     float valorReta = ampReta * 10 * t_reta;
     wserial.plot("reta", valorReta);
     adiciona(retaBuf, valorReta);        // NOVO: guarda para o navegador
@@ -253,9 +255,9 @@ void loop() {
   }
 
   static float t_seno = 0.0f;            // variável de tempo para o seno
-  static uint32_t lastRetry1 = 0;
-  if (millis() - lastRetry1 > 100) {
-    lastRetry1 = millis();
+  static uint32_t t2 = 0;
+  if (now - t2 > 100) {
+    t2 = now;
     float valorSeno = ampSeno * sin(t_seno);
     wserial.plot("seno", valorSeno);     // envia para o gráfico
     adiciona(senoBuf, valorSeno);        // NOVO: guarda para o navegador

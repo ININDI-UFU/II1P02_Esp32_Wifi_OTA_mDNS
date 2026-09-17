@@ -38,18 +38,20 @@ void loop() {
   ArduinoOTA.handle();
   wserial.update();
 
+  uint32_t now = millis();
+
   static float t_reta = 0.0f;            // variável de tempo para a reta
-  static uint32_t lastRetry0 = 0;
-  if (millis() - lastRetry0 > 200) {
-    lastRetry0 = millis();
+  static uint32_t t1 = 0;
+  if (now - t1 > 200) {
+    t1 = now;
     wserial.plot("reta",10*t_reta);
     t_reta += 0.2f;                      // incrementa o tempo (ajuste a velocidade)
   }
 
   static float t_seno = 0.0f;            // variável de tempo para o seno
-  static uint32_t lastRetry1 = 0;
-  if (millis() - lastRetry1 > 100) {
-    lastRetry1 = millis();
+  static uint32_t t2 = 0;
+  if (now - t2 > 100) {
+    t2 = now;
     wserial.plot("seno", sin(t_seno));   // envia para o gráfico
     t_seno += 0.2f;                      // incrementa o tempo (ajuste a velocidade)
     if (t_seno > 2 * M_PI) t_seno = 0;   // reinicia o ciclo a cada 2π
