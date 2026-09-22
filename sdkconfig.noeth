@@ -1,0 +1,2 @@
+# sdkconfig.noeth
+# CONFIG_ETH_USE_OPENETH is not set
