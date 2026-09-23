@@ -1,0 +1,231 @@
+{
+  "schemaVersion": 2,
+  "components": [
+    {
+      "id": "component-1784293420489-268209",
+      "typeId": "subcircuits.esp32_devkitc_v4",
+      "properties": {
+        "__ui_exposedMcu_mcu1_firmwarePath": "c:\\Source Local\\II1P04_GPIO_Debug\\sourcecode\\merged.bin"
+      },
+      "label": "ESP32 DevKitC V4 (placa completa)-1",
+      "showValue": false,
+      "visual": {
+        "x": 211.71457916642942,
+        "y": 121.02378506946422,
+        "rotation": 0
+      }
+    },
+    {
+      "id": "component-1784403032914-630873",
+      "typeId": "peripherals.lasecplot",
+      "properties": {
+        "source_name": "LasecPlot-1",
+        "baudrate": 921600,
+        "mode": "bidirectional"
+      },
+      "label": "inind",
+      "showValue": false,
+      "showDialValue": false,
+      "visual": {
+        "x": 367.8944768176136,
+        "y": 167.2085308418322,
+        "rotation": 0
+      }
+    },
+    {
+      "id": "component-1784996914558-768767",
+      "typeId": "outputs.ssd1306",
+      "properties": {},
+      "label": "SSD1306-1",
+      "showValue": false,
+      "showDialValue": false,
+      "visual": {
+        "x": 86.77532040222708,
+        "y": 31.423362340524754,
+        "rotation": 0
+      }
+    },
+    {
+      "id": "component-1784996961575-850503",
+      "typeId": "connectors.tunnel",
+      "properties": {
+        "name": "SCL"
+      },
+      "label": "Tunnel.-1",
+      "showValue": false,
+      "showDialValue": false,
+      "visual": {
+        "x": 84.50744440308974,
+        "y": 134.32278884150747,
+        "rotation": 270
+      }
+    },
+    {
+      "id": "component-1785004703718-224288",
+      "typeId": "connectors.tunnel",
+      "properties": {
+        "name": "SDA"
+      },
+      "label": "Tunnel.-2",
+      "showValue": false,
+      "showDialValue": false,
+      "visual": {
+        "x": 92.2896998872051,
+        "y": 134.24900194043062,
+        "rotation": 270
+      }
+    },
+    {
+      "id": "component-1785004762194-321344",
+      "typeId": "connectors.tunnel",
+      "properties": {
+        "name": "SCL"
+      },
+      "label": "Tunnel.-3",
+      "showValue": false,
+      "showDialValue": false,
+      "flipH": false,
+      "visual": {
+        "x": 292.95415748807864,
+        "y": 151.7762405717994,
+        "rotation": 180
+      }
+    },
+    {
+      "id": "component-1785004762195-844292",
+      "typeId": "connectors.tunnel",
+      "properties": {
+        "name": "SDA"
+      },
+      "label": "Tunnel.-4",
+      "showValue": false,
+      "showDialValue": false,
+      "visual": {
+        "x": 294.2344568822589,
+        "y": 178.249753868569,
+        "rotation": 180
+      }
+    }
+  ],
+  "topology": {
+    "revision": 2005,
+    "nodes": [],
+    "conductors": [
+      {
+        "id": "wire-1784403040499-17086",
+        "from": {
+          "kind": "port",
+          "componentId": "component-1784293420489-268209",
+          "pinId": "RX"
+        },
+        "to": {
+          "kind": "port",
+          "componentId": "component-1784403032914-630873",
+          "pinId": "tx"
+        },
+        "vertices": []
+      },
+      {
+        "id": "wire-1784403050926-538733",
+        "from": {
+          "kind": "port",
+          "componentId": "component-1784293420489-268209",
+          "pinId": "TX"
+        },
+        "to": {
+          "kind": "port",
+          "componentId": "component-1784403032914-630873",
+          "pinId": "rx"
+        },
+        "vertices": [
+          {
+            "x": 344,
+            "y": 167.02378506946422
+          },
+          {
+            "x": 344,
+            "y": 192
+          },
+          {
+            "x": 367.8944768176136,
+            "y": 192
+          }
+        ]
+      },
+      {
+        "id": "wire-1785004693247-501299",
+        "from": {
+          "kind": "port",
+          "componentId": "component-1784996914558-768767",
+          "pinId": "scl"
+        },
+        "to": {
+          "kind": "port",
+          "componentId": "component-1784996961575-850503",
+          "pinId": "pin"
+        },
+        "vertices": [
+          {
+            "x": 108.77532040222708,
+            "y": 141.39626978911917
+          }
+        ]
+      },
+      {
+        "id": "wire-1785004720375-303221",
+        "from": {
+          "kind": "port",
+          "componentId": "component-1784996914558-768767",
+          "pinId": "sda"
+        },
+        "to": {
+          "kind": "port",
+          "componentId": "component-1785004703718-224288",
+          "pinId": "pin"
+        },
+        "vertices": []
+      },
+      {
+        "id": "wire-1785004812050-572358",
+        "from": {
+          "kind": "port",
+          "componentId": "component-1784293420489-268209",
+          "pinId": "G22"
+        },
+        "to": {
+          "kind": "port",
+          "componentId": "component-1785004762194-321344",
+          "pinId": "pin"
+        },
+        "vertices": []
+      },
+      {
+        "id": "wire-1785004830829-855021",
+        "from": {
+          "kind": "port",
+          "componentId": "component-1784293420489-268209",
+          "pinId": "G21"
+        },
+        "to": {
+          "kind": "port",
+          "componentId": "component-1785004762195-844292",
+          "pinId": "pin"
+        },
+        "vertices": [
+          {
+            "x": 318.2344568822589,
+            "y": 184.02378506946422
+          }
+        ]
+      }
+    ]
+  },
+  "visual": {
+    "viewport": {
+      "zoom": 3.005642806580587,
+      "x": 34.50935627146464,
+      "y": -50.09740297737358
+    }
+  },
+  "simulationSettings": {}
+}

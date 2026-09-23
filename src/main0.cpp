@@ -5,7 +5,12 @@
 
 
 void setup() {
-  WiFi.begin("InovaIndustria","industria50");
+  #if CONFIG_ETH_USE_OPENETH
+    startOpenEth();   // QEMU + lab-router
+  #else
+    WiFi.begin("InovaIndustria","industria50");
+  #endif
+
   while (WiFi.status()!=WL_CONNECTED) delay(100);
 
     // Tenta listen até conseguir

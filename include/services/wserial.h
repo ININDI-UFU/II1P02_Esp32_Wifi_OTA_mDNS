@@ -154,6 +154,11 @@ public:
 
     template <typename T>
     void println(const T &data) { _send(String(data) + WSERIAL_NEWLINE); }
+
+    // std::string não possui conversão implícita para Arduino String.
+    void println(const std::string &data) {
+        _send(String(data.c_str()) + WSERIAL_NEWLINE);
+    }
     void println() { _send(WSERIAL_NEWLINE); }
 
     template <typename T>
