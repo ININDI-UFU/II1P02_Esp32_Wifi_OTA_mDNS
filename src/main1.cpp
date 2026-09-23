@@ -9,7 +9,11 @@ const char *password = "industria50";
 const char *hostName = KIT_HOSTNAME;
 
 void setup() {
-  WiFi.begin(ssid, password);
+  #if CONFIG_ETH_USE_OPENETH
+    startOpenEth();   // QEMU + lab-router
+  #else
+    WiFi.begin(ssid, password);
+  #endif
   while (WiFi.status() != WL_CONNECTED) delay(100);
 
   // Tenta listen até conseguir

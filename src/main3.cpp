@@ -209,7 +209,12 @@ void paginaSet() {
 // ====================== fim da parte NOVA ======================
 
 void setup() {
-  WiFi.begin(ssid, password);
+  #if CONFIG_ETH_USE_OPENETH
+    startOpenEth();   // QEMU + lab-router
+  #else
+    WiFi.begin(ssid, password);
+  #endif
+
   while (WiFi.status() != WL_CONNECTED) delay(100);
   WiFi.setHostname(hostName);
 
