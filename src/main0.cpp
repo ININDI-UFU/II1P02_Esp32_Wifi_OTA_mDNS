@@ -1,16 +1,11 @@
 #include <Arduino.h>
-#include <WiFi.h>
+#include "WiFiCompat.h"
 #include <ESPmDNS.h>
 #include "services\wserial.h"
 
 
 void setup() {
-  #if CONFIG_ETH_USE_OPENETH
-    startOpenEth();   // QEMU + lab-router
-  #else
-    WiFi.begin("InovaIndustria","industria50");
-  #endif
-
+  WiFi.begin("InovaIndustria","industria50");
   while (WiFi.status()!=WL_CONNECTED) delay(100);
 
     // Tenta listen até conseguir

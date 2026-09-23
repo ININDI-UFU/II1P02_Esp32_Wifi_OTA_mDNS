@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include <WiFi.h>
+#include "WiFiCompat.h"
 #include <ESPmDNS.h>
 #include <ArduinoOTA.h>
 #include <WebServer.h>          // NOVO em relação ao main2: servidor web
@@ -209,12 +209,7 @@ void paginaSet() {
 // ====================== fim da parte NOVA ======================
 
 void setup() {
-  #if CONFIG_ETH_USE_OPENETH
-    startOpenEth();   // QEMU + lab-router
-  #else
-    WiFi.begin(ssid, password);
-  #endif
-
+  WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) delay(100);
   WiFi.setHostname(hostName);
 

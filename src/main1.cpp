@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include <WiFi.h>
+#include "WiFiCompat.h"
 #include <ESPmDNS.h>
 #include <ArduinoOTA.h>
 #include "services\wserial.h"
@@ -9,11 +9,8 @@ const char *password = "industria50";
 const char *hostName = KIT_HOSTNAME;
 
 void setup() {
-  #if CONFIG_ETH_USE_OPENETH
-    startOpenEth();   // QEMU + lab-router
-  #else
-    WiFi.begin(ssid, password);
-  #endif
+
+  WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) delay(100);
 
   // Tenta listen até conseguir

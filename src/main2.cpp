@@ -13,11 +13,7 @@ void receivedFunc(std::string str){
 }
 
 void setup() {
-  #if CONFIG_ETH_USE_OPENETH
-    startOpenEth();   // QEMU + lab-router
-  #else
-    WiFi.begin(ssid, password);
-  #endif
+  WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) delay(100);
   WiFi.setHostname(hostName);
 
