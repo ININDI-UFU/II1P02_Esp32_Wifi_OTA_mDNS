@@ -4,10 +4,14 @@
 #include <ArduinoOTA.h>
 #include <WebServer.h>          // NOVO em relação ao main2: servidor web
 #include "services\wserial.h"
+#include "services/display_ssd1306.h" // disp     — display OLED SSD1306
 
 const char *ssid = "InovaIndustria";
 const char *password = "industria50";
 const char *hostName = KIT_HOSTNAME;
+
+static constexpr uint8_t PIN_SDA   = 21;  ///< def_pin_SDA  — I2C SDA (display)
+static constexpr uint8_t PIN_SCL   = 22;  ///< def_pin_SCL  — I2C SCL (display)
 
 void receivedFunc(std::string str){
   wserial.println(str.c_str()+std::string("\n"));
@@ -213,6 +217,13 @@ void setup() {
   while (WiFi.status() != WL_CONNECTED) delay(100);
   WiFi.setHostname(hostName);
 
+
+  disp.begin(PIN_SDA, PIN_SCL);
+  disp.setText(1, "Teste de display");
+  disp.setText(2, ("[IP] is " + String(WiFi.localIP().toString())).c_str());
+  disp.setText(3, "Linha 3");
+  disp.update();
+
   // Tenta listen até conseguir
   wserial.begin(115200, 47268UL);
   wserial.onInputReceived([](std::string str){ wserial.println((str+'\n').c_str()); });
@@ -220,6 +231,7 @@ void setup() {
 
   if (!MDNS.begin(hostName)) wserial.println("[mDNS] begin failed");
   else wserial.println("[mDNS] begin in " + String(hostName));
+
 
   ArduinoOTA
       .onStart([]() {wserial.println("[OTA] Start");})
@@ -238,6 +250,7 @@ void setup() {
 }
 
 void loop() {
+  disp.update();
   ArduinoOTA.handle();
   wserial.update();
   server.handleClient();       // NOVO em relação ao main2

@@ -23,7 +23,7 @@
         "baudrate": 921600,
         "mode": "bidirectional"
       },
-      "label": "inind",
+      "label": "josue",
       "showValue": false,
       "showDialValue": false,
       "visual": {
@@ -108,7 +108,7 @@
     }
   ],
   "topology": {
-    "revision": 2010,
+    "revision": 2029,
     "nodes": [],
     "conductors": [
       {
@@ -164,12 +164,7 @@
           "componentId": "component-1784996961575-850503",
           "pinId": "pin"
         },
-        "vertices": [
-          {
-            "x": 108.77532040222708,
-            "y": 141.39626978911917
-          }
-        ]
+        "vertices": []
       },
       {
         "id": "wire-1785004720375-303221",
@@ -211,20 +206,15 @@
           "componentId": "component-1785004762195-844292",
           "pinId": "pin"
         },
-        "vertices": [
-          {
-            "x": 318.2344568822589,
-            "y": 184.02378506946422
-          }
-        ]
+        "vertices": []
       }
     ]
   },
   "visual": {
     "viewport": {
-      "x": 101.5978764357701,
-      "y": -22.9784246319781,
-      "zoom": 1.8319598104415982
+      "x": 30.977244039551806,
+      "y": -32.305981454694574,
+      "zoom": 1.6753001580185178
     }
   },
   "simulationSettings": {}
