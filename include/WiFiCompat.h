@@ -14,6 +14,8 @@ extern "C" {
 #include "freertos/FreeRTOS.h"
 #include "freertos/event_groups.h"
 #include "lwip/ip4_addr.h"
+#include "lwip/netdb.h"
+#include "lwip/sockets.h"
 }
 
 using wl_status_t = uint8_t;
@@ -29,6 +31,8 @@ public:
     wl_status_t begin(const char *ssid, const char *password = nullptr);
     wl_status_t status() const;
     IPAddress localIP() const;
+    bool setHostname(const char *hostname);
+    int hostByName(const char *hostname, IPAddress &result, uint32_t timeout = 5000) const;
 
 private:
     bool startOpenEth();
@@ -37,21 +41,12 @@ private:
     esp_eth_handle_t ethHandle_ = nullptr;
     esp_netif_t *netif_ = nullptr;
     EventGroupHandle_t events_ = nullptr;
+    char hostname_[64] = {};
 };
 
 extern WiFiCompatClass WiFi;
 
 static constexpr EventBits_t GOT_IP = BIT0;
-
-static void onGotIp(
-    void *arg,
-    esp_event_base_t,
-    int32_t,
-    void *)
-{
-    auto *self = static_cast<WiFiCompatClass *>(arg);
-    xEventGroupSetBits(self->events_, GOT_IP);
-}
 
 WiFiCompatClass WiFi;
 
@@ -86,6 +81,9 @@ bool WiFiCompatClass::startOpenEth()
     netif_ = esp_netif_new(&netifConfig);
     if (netif_ == nullptr)
         return false;
+
+    if (hostname_[0] != '\0')
+        esp_netif_set_hostname(netif_, hostname_);
 
     eth_mac_config_t macConfig = ETH_MAC_DEFAULT_CONFIG();
     eth_phy_config_t phyConfig = ETH_PHY_DEFAULT_CONFIG();
@@ -175,6 +173,41 @@ IPAddress WiFiCompatClass::localIP() const
         ip4_addr3(&info.ip),
         ip4_addr4(&info.ip)
     );
+}
+
+bool WiFiCompatClass::setHostname(const char *hostname)
+{
+    if (hostname == nullptr || hostname[0] == '\0')
+        return false;
+
+    strncpy(hostname_, hostname, sizeof(hostname_) - 1);
+    hostname_[sizeof(hostname_) - 1] = '\0';
+
+    return netif_ == nullptr || esp_netif_set_hostname(netif_, hostname_) == ESP_OK;
+}
+
+int WiFiCompatClass::hostByName(
+    const char *hostname,
+    IPAddress &result,
+    uint32_t)
+    const
+{
+    if (hostname == nullptr || hostname[0] == '\0')
+        return 0;
+
+    const struct addrinfo hints = {
+        .ai_family = AF_INET,
+        .ai_socktype = SOCK_STREAM,
+    };
+    struct addrinfo *resolved = nullptr;
+    if (getaddrinfo(hostname, nullptr, &hints, &resolved) != 0 || resolved == nullptr)
+        return 0;
+
+    const auto *address = reinterpret_cast<const struct sockaddr_in *>(resolved->ai_addr);
+    const auto *bytes = reinterpret_cast<const uint8_t *>(&address->sin_addr.s_addr);
+    result = IPAddress(bytes[0], bytes[1], bytes[2], bytes[3]);
+    freeaddrinfo(resolved);
+    return 1;
 }
 
 #else

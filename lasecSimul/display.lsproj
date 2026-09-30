@@ -5,7 +5,7 @@
       "id": "component-1784293420489-268209",
       "typeId": "subcircuits.esp32_devkitc_v4",
       "properties": {
-        "__ui_exposedMcu_mcu1_firmwarePath": "c:\\Source Local\\II1P04_GPIO_Debug\\sourcecode\\merged.bin"
+        "__ui_exposedMcu_mcu1_firmwarePath": "c:\\Prof_Josue\\0II1\\II1P02_Esp32_Wifi_OTA_mDNS\\sourcecode\\merged.bin"
       },
       "label": "ESP32 DevKitC V4 (placa completa)-1",
       "showValue": false,
@@ -108,7 +108,7 @@
     }
   ],
   "topology": {
-    "revision": 2005,
+    "revision": 2010,
     "nodes": [],
     "conductors": [
       {
@@ -222,9 +222,9 @@
   },
   "visual": {
     "viewport": {
-      "zoom": 3.005642806580587,
-      "x": 34.50935627146464,
-      "y": -50.09740297737358
+      "x": 101.5978764357701,
+      "y": -22.9784246319781,
+      "zoom": 1.8319598104415982
     }
   },
   "simulationSettings": {}

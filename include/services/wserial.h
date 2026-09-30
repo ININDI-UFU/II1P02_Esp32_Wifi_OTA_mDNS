@@ -5,7 +5,11 @@
  * Uso: wserial.setup(); wserial.loop(); wserial.plot("var", valor);
  */
 #include <Arduino.h>
+#if defined(LASECSIMUL_OPENETH)
+#include "WiFiCompat.h"
+#else
 #include <WiFi.h>
+#endif
 #include <AsyncUDP.h>
 
 #define WSERIAL_NEWLINE "\r\n"
