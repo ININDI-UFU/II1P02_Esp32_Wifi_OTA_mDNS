@@ -12,7 +12,7 @@ void setup() {
   wserial.begin(115200, 47268UL);
   wserial.println("[IP] is " + String(WiFi.localIP().toString()));
 
-  MDNS.begin("josue");          // acessa em esp32name.local
+  MDNS.begin("KIT_HOSTNAME");          // acessa em esp32name.local
 }
 void loop() {
     wserial.update();
